@@ -10,3 +10,4 @@ class QuoteSchema(ma.SQLAlchemySchema):
    quote = ma.auto_field()
 
 quote_schema = QuoteSchema
+quote_schema = QuoteSchema(many=True)

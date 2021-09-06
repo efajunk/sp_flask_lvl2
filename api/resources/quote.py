@@ -13,7 +13,7 @@ class QuoteResource(Resource):
         """
         if author_id is None and quote_id is None:
             quotes = QuoteModel.query.all()
-            return [quote_schema.dump(quote) for quote in quotes]
+            return quote_schema.dump(quotes)
 
         author = AuthorModel.query.get(author_id)
         if quote_id is None:
