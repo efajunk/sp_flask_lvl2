@@ -3,6 +3,7 @@ from api.resources.quote import QuoteResource
 from api.resources.author import AuthorResource
 from config import Config
 
+
 api.add_resource(QuoteResource,
                  '/authors/<int:author_id>/quotes/<int:quote_id>',
                  '/authors/<int:author_id>/quotes',

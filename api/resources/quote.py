@@ -1,6 +1,7 @@
 from api import Resource, reqparse, db
 from api.models.author import AuthorModel
 from api.models.quote import QuoteModel
+from api.schemas.quote import quote_schema
 
 
 class QuoteResource(Resource):
@@ -12,7 +13,7 @@ class QuoteResource(Resource):
         """
         if author_id is None and quote_id is None:
             quotes = QuoteModel.query.all()
-            return [quote.to_dict() for quote in quotes]
+            return [quote_schema.dump(quote) for quote in quotes]
 
         author = AuthorModel.query.get(author_id)
         if quote_id is None:
