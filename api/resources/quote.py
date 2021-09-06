@@ -18,11 +18,12 @@ class QuoteResource(Resource):
         author = AuthorModel.query.get(author_id)
         if quote_id is None:
             quotes = author.quotes.all()
-            return [quote.to_dict() for quote in quotes], 200
+            return quote_schema.dump(quotes), 200
 
         quote = QuoteModel.query.get(id)
+        # TODO: in progress
         if quote is not None:
-            return quote.to_dict(), 200
+            return quote_schema.dump(quote), 200
         return {"Error": "Quote not found"}, 404
 
     def post(self, author_id):
