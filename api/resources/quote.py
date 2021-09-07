@@ -20,8 +20,7 @@ class QuoteResource(Resource):
             quotes = author.quotes.all()
             return quote_schema.dump(quotes), 200
 
-        quote = QuoteModel.query.get(id)
-        # TODO: in progress
+        quote = QuoteModel.query.get(quote_id)
         if quote is not None:
             return quote_schema.dump(quote), 200
         return {"Error": "Quote not found"}, 404
