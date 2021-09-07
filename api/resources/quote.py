@@ -34,7 +34,7 @@ class QuoteResource(Resource):
             quote = QuoteModel(author, quote_data["quote"])
             db.session.add(quote)
             db.session.commit()
-            return quote.to_dict(), 201
+            return quote_schema.dump(quote), 201
         return {"Error": f"Author id={author_id} not found"}, 404
 
     def put(self, quote_id):
@@ -47,7 +47,7 @@ class QuoteResource(Resource):
         quote.author = new_data["author"]
         quote.quote = new_data["quote"]
         db.session.commit()
-        return quote.to_dict(), 200
+        return quote_schema.dump(quote), 200
 
     def delete(self, quote_id):
         quote = QuoteModel.query.get(quote_id)
@@ -55,4 +55,4 @@ class QuoteResource(Resource):
             return f"Quote with id {quote_id} not found", 404
         db.session.delete(quote)
         db.session.commit()
-        return quote.to_dict(), 200
+        return quote_schema.dump(quote), 200
