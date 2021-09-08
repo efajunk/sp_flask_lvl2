@@ -1,6 +1,7 @@
 .idea/
 __pycache__/
 tmp/
+migrations/
 *env/
 *.db
 *.pyc
