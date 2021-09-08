@@ -1,5 +1,5 @@
 from config import Config
-from flask import Flask, request
+from flask import Flask, request, g
 from flask_restful import Api, Resource, reqparse
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -21,3 +21,19 @@ api = UnicodeApi(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 ma = Marshmallow(app)
+auth = HTTPBasicAuth()
+
+
+@auth.verify_password
+def verify_password(username_or_token, password):
+   from api.models.user import UserModel
+   # сначала проверяем authentication token
+   print("username_or_token = ", username_or_token)
+   user = UserModel.verify_auth_token(username_or_token)
+   if not user:
+       # потом авторизация
+       user = UserModel.query.filter_by(username=username_or_token).first()
+       if not user or not user.verify_password(password):
+           return False
+   g.user = user
+   return True

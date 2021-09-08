@@ -2,13 +2,11 @@ from api import ma
 from api.models.user import UserModel
 
 
-class UserSchema(ma.SQLAlchemySchema):
+class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = UserModel
-
-    id = ma.auto_field()
-    username = ma.auto_field()
-    password = ma.auto_field()
+        # fields = ["id", "username"]
+        exclude = ["password_hash"]
 
 
 user_schema = UserSchema()
