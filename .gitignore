@@ -1,7 +1,9 @@
 .idea/
 __pycache__/
+upload/
 tmp/
-migrations/
 *env/
 *.db
 *.pyc
+*.log
+*.pot
